@@ -34,22 +34,34 @@ public class HelloLWJGL {
 
     private void loop() {
         float angle = 0;
-        
+
+        float r = 0.8f;
+        float lastX = r;
+        float lastY = 0f;
+
+        float nextX, nextY;
+
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+
         while (true) {
             double t = GLFW.glfwGetTime();
 
-            angle = angle + 0.10f;
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-            
+            // all our calculations are in radian (NOT degree)
+            angle = (float) (2 * Math.PI / 60.0 * t);
+
+            nextX = (float) (r * Math.cos(angle));
+            nextY = (float) (r * Math.sin(angle));
             GL11.glPushMatrix();
-            GL11.glRotatef(angle, 0, 0, 1);
             GL11.glBegin(GL11.GL_TRIANGLES);
-            GL11.glVertex3f(+1.0f, 0.0f, 0.0f);
-            GL11.glVertex3f(+0.0f, 1.0f, 0.0f);
-            GL11.glVertex3f(-1.0f, 0.0f, 0.0f);
+            GL11.glVertex3f(+0.0f, 0.0f, 0.0f); // origin
+            GL11.glVertex3f(lastX, lastY, 0.0f); // p1
+            GL11.glVertex3f(nextX, nextY, 0.0f); // p2
             GL11.glEnd();
             GL11.glPopMatrix();
-            
+
+            lastX = nextX;
+            lastY = nextY;
+
             GLFW.glfwSwapBuffers(window);
         }
     }
