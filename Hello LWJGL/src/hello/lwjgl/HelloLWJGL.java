@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class HelloLWJGL {
 
-    private int WIDTH = 800;
+    private int WIDTH = 600;
     private int HEIGHT = 600;
     private long window;
 
@@ -33,14 +33,22 @@ public class HelloLWJGL {
     }
 
     private void loop() {
+        float angle = 0;
+        
         while (true) {
+            double t = GLFW.glfwGetTime();
+
+            angle = angle + 0.10f;
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
             
+            GL11.glPushMatrix();
+            GL11.glRotatef(angle, 0, 0, 1);
             GL11.glBegin(GL11.GL_TRIANGLES);
             GL11.glVertex3f(+1.0f, 0.0f, 0.0f);
             GL11.glVertex3f(+0.0f, 1.0f, 0.0f);
             GL11.glVertex3f(-1.0f, 0.0f, 0.0f);
             GL11.glEnd();
+            GL11.glPopMatrix();
             
             GLFW.glfwSwapBuffers(window);
         }
