@@ -15,6 +15,7 @@ import org.lwjgl.Version;
 public class HelloLWJGL {
 
     public HelloLWJGL() {
+        System.out.println("Hello everyone!");
         System.out.println("LWJGL version " + Version.getVersion());
     }
     
