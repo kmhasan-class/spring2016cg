@@ -47,6 +47,24 @@ public class DrawShapes {
         GL11.glEnd();
     }
     
+    public static void fillCircle(float radius, int sides) {
+        float dtheta = (float) Math.PI * 2 / sides;
+        GL11.glBegin(GL11.GL_TRIANGLES);
+        for (int i = 0; i < sides; i++) {
+            float x0, y0;
+            float x1, y1;
+            x0 = radius * (float) Math.cos(i * dtheta);
+            y0 = radius * (float) Math.sin(i * dtheta);
+            x1 = radius * (float) Math.cos((i + 1) * dtheta);
+            y1 = radius * (float) Math.sin((i + 1) * dtheta);
+            
+            GL11.glVertex3f(0, 0, 0);
+            GL11.glVertex3f(x0, y0, 0);
+            GL11.glVertex3f(x1, y1, 0);
+        }
+        GL11.glEnd();
+    }
+    
     public static void strokeCircle(float x, float y, float z, float radius, int sides) {
         GL11.glPushMatrix();
         GL11.glTranslatef(x, y, z);
